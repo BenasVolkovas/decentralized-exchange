@@ -1,0 +1,22 @@
+{
+  "name": "decentralized-exchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenasVolkovas/decentralized-exchange.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenasVolkovas/decentralized-exchange/issues"
+  },
+  "homepage": "https://github.com/BenasVolkovas/decentralized-exchange#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.1.0"
+  }
+}
