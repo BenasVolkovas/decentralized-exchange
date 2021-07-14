@@ -3,7 +3,7 @@ const Link = artifacts.require("Link");
 const truffleAssert = require("truffle-assertions");
 
 // Limit orders
-contract.skip("Dex", (accounts) => {
+contract("Dex", (accounts) => {
     // #01
     // The user must have ETH deposited such that deposited eth >= buy order value
     it("should throw an error if ETH balance is too low when creating BUY limit order", async () => {
@@ -48,8 +48,6 @@ contract.skip("Dex", (accounts) => {
         let orderbook = await dex.getOrderBook(web3.utils.fromUtf8("LINK"), 0);
         assert(orderbook.length > 0);
 
-        await console.log(orderbook);
-
         for (let i = 0; i < orderbook.length - 1; i++) {
             assert(
                 orderbook[i].price >= orderbook[i + 1].price,
@@ -75,8 +73,6 @@ contract.skip("Dex", (accounts) => {
 
         let orderbook = await dex.getOrderBook(web3.utils.fromUtf8("LINK"), 1);
         assert(orderbook.length > 0);
-
-        await console.log(orderbook);
 
         for (let i = 0; i < orderbook.length - 1; i++) {
             assert(
@@ -157,7 +153,6 @@ contract("Dex", (accounts) => {
         );
     });
 
-    /*
     // #03
     // Market orders can be submitted even if the order book is empty
     it("Market orders can be submitted even if the order book is empty", async () => {
@@ -457,17 +452,12 @@ contract("Dex", (accounts) => {
             from: accounts[1],
         });
 
-        sellOrderbook = await dex.getOrderBook(web3.utils.fromUtf8("LINK"), 1);
-        console.log(sellOrderbook);
-
         await dex.depositEth({ value: 600 });
         await dex.createMarketOrder(0, web3.utils.fromUtf8("LINK"), 2);
 
         sellOrderbook = await dex.getOrderBook(web3.utils.fromUtf8("LINK"), 1);
-        console.log(sellOrderbook);
 
         assert(sellOrderbook[0].filled == 2);
         assert(sellOrderbook[0].amount == 5);
     });
-	*/
 });
