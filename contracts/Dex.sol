@@ -112,39 +112,20 @@ contract Dex is Wallet {
 			}
 		}
 
-		//Remove 100% filled orders from the orderbook
-		while(orders.length > 0 && orders[0].filled == orders[0].amount){
-			//Remove the top element in the orders array by overwriting every element
-			// with the next element in the order list
-			for (uint256 i = 0; i < orders.length - 1; i++) {
-				orders[i] = orders[i + 1];
-			}
-			orders.pop();
-		}
-
-
-		/*
-		bool foundFilledOrders = false;
 		uint lastFilledOrder = 0;
-		bool noFilledOrders = false;
-		if (orders.length > 0) {
-			for (uint256 i = 0; i < orders.length && foundFilledOrders == false; i++) {
-				if (orders[i].filled == orders[i].amount) {
-					lastFilledOrder = i;
-				} else if (i == 0) {
-					noFilledOrders = true;
-					foundFilledOrders = true;
+		if (orders.length > 0) { // Orderbook is not empty
+			if (orders[0].amount == orders[0].filled) { // There are filled orders
+				if (orders[orders.length - 1].amount == orders[orders.length - 1].filled) { // All orders are filled
+					delete orderBook[_ticker][orderbookSide];
 				} else {
-					foundFilledOrders = true;
-				}
-			}
-
-			if (noFilledOrders == false) {
-				if (lastFilledOrder + 1 == orders.length) {
 					for (uint256 i = 0; i < orders.length; i++) {
-						orders.pop();
+						if (orders[i].filled == orders[i].amount) {
+							lastFilledOrder = i;
+						} else {
+							break;
+						}
 					}
-				} else {
+
 					uint placeToCopy = lastFilledOrder.add(1);
 					for (uint256 i = 0; i < orders.length - lastFilledOrder - 1; i++) {
 						orders[i] = orders[placeToCopy];
@@ -157,7 +138,6 @@ contract Dex is Wallet {
 				}
 			}
 		}
-		*/		
 
 	}
 }
